@@ -1,9 +1,7 @@
 
-
+complete excercise 1.2.1 if needing matrix refresher
 
 read uni textbooks for ila
-1-9
-9-19
 20-26
 
 for inf1a

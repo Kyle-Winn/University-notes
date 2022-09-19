@@ -1,0 +1,52 @@
+Homogeneous equations - 
+when all constant terms are zero
+eg a1x1 + a2x2 + ... + anxn = 0
+if all x terms are 0 then it is clearly a solution - this is called a trivial solution
+any solution where at least one variable has a nonzero value is called a nontrivial solution.
+
+
+If a homogeneous system of linear equations has more variables than equations, then it has a
+nontrivial solution (in fact, infinitely many).
+
+
+
+
+Matrix - 
+A matrix is said to be in row-echelon form (and will be called a row-echelon matrix) if it
+satisfies the following three conditions:
+1. All zero rows (consisting entirely of zeros) are at the bottom.
+2. The first nonzero entry from the left in each nonzero row is a 1, called the leading 1 for that
+row.
+3. Each leading 1 is to the right of all leading 1s in the rows above it.
+A row-echelon matrix is said to be in reduced row-echelon form (and will be called a reduced
+row-echelon matrix) if, in addition, it satisfies the following condition:
+4. Each leading 1 is the only nonzero entry in its column.
+
+Gaussian algorithm
+
+Step 1. If the matrix consists entirely of zeros, stop—it is already in row-echelon form.
+Step 2. Otherwise, find the first column from the left containing a nonzero entry (call it a),
+and move the row containing that entry to the top position.
+Step 3. Now multiply the new top row by 1/a to create a leading 1.
+Step 4. By subtracting multiples of that row from rows below it, make each entry below the
+leading 1 zero.
+This completes the first row, and all further row operations are carried out on the remaining rows.
+Step 5. Repeat steps 1–4 on the matrix consisting of the remaining rows.
+The process stops when either no rows remain at step 5 or the remaining rows consist entirely of
+zeros.
+
+r (or rank) is the number of rows with leading 1s
+
+if there is no leading variable for a variable set it to like t or smth x3 = t for a parameter
+
+Gaussian Elimination
+To solve a system of linear equations proceed as follows:
+1. Carry the augmented matrix to a reduced row-echelon matrix using elementary row
+operations.
+2. If a row
+
+0 0 0 ··· 0 1
+occurs, the system is inconsistent.
+3. Otherwise, assign the nonleading variables (if any) as parameters, and use the equations
+corresponding to the reduced row-echelon matrix to solve for the leading variables in terms
+of the parameters.
