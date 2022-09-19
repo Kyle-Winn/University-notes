@@ -1,1 +1,59 @@
 Set theory-
+http://discrete.openmathbooks.org/dmoi3/sec_intro-sets.html
+proper subset represented by C excludes itself
+proper subset of P are {2,3,5}, {2}, {2,3,5,7,11}, {} etc, but not {2,3,5,7,11,13} which is P itself
+
+power set denoted by P or IP the number of elements in a powerset is 2^n where n is the number of elements in that set
+
+intersection-
+looks like a n
+this means overlap
+F n P = {2,3} = {prime factors of 24}
+
+Union -
+looks like an u
+uniting the members of 2 or more sets
+F u P = Either in F or P or both
+
+Cartesian product of two sets A and B written as A x B and is the set of all ordered pairs (a,b) where a E B and b E B
+
+relations and functions
+
+a binary relation links a member of a set A with a set B by some defined rule. We often use ordered 2-tuples to denote these.
+
+E.g.: if a E A and b E B and a is related to b by a relation R, then we can represent it by (a,b) E R or aRb. note R is a subset of A x B 
+
+x -> 4x + 3
+one to one relation
+
+x -> x squared
+many to one
+(because -3 and 3 are both 9)
+
+x -> square root
+one to many
+
+composite functions
+http://discrete.openmathbooks.org/dmoi3/sec_intro-functions.html
+
+Proofs
+if p then q
+means if P is assumed to be true then we can prove Q is true
+n is even => n = 2k
+
+Proof by contraposition
+Claim: For all integers n if n^2 is even then n is even.
+proof: We use the method of proof by contraposition. The contrapositive is "if n is odd, then n^2 is odd"
+Let n be an arbitray odd integer, then n = 2k+1 for some integer k.
+Now n squared = (2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k)+1
+since 2k^2 + 2k is an integer under the closure of integer operations n*2 is odd
+P -> ! = Not Q -> Not P
+
+Proof by contradiction
+Ex: prove there are no integers x and y such that x^2 = 4y + 2
+suppose there are integers x and y such that x^2 = 4y + 2 = 2(2y+1)
+so x^2 is even and we see in previous proofs that x is even. Therefore x = 2k for some integer k and x^2 = 4k^2
+
+This gives us 4k^2 = 2(2y+1)
+2k^2 = 2y + 1
+however 2k^2 is even and 2y+1 is odd so we have a contradiction. 
