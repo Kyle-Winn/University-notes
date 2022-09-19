@@ -1,0 +1,21 @@
+
+
+
+read uni textbooks for ila
+1-9
+9-19
+20-26
+
+for inf1a
+chapter 2 types
+chap 3 simple computation
+chap 7 testing programs
+
+install haskell on home computer, 
+install haskell on macbook
+
+read brians award on phone
+read binder
+spreadsheet for hours
+
+
