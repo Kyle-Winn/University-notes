@@ -50,6 +50,7 @@ since 2k^2 + 2k is an integer under the closure of integer operations n*2 is odd
 P -> ! = Not Q -> Not P
 
 Proof by contradiction
+http://discrete.openmathbooks.org/dmoi3/sec_logic-proofs.html
 Ex: prove there are no integers x and y such that x^2 = 4y + 2
 suppose there are integers x and y such that x^2 = 4y + 2 = 2(2y+1)
 so x^2 is even and we see in previous proofs that x is even. Therefore x = 2k for some integer k and x^2 = 4k^2
@@ -57,3 +58,6 @@ so x^2 is even and we see in previous proofs that x is even. Therefore x = 2k fo
 This gives us 4k^2 = 2(2y+1)
 2k^2 = 2y + 1
 however 2k^2 is even and 2y+1 is odd so we have a contradiction. 
+
+Proof by induction
+http://discrete.openmathbooks.org/dmoi3/sec_seq-induction.html

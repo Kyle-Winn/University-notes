@@ -1,3 +1,5 @@
+induction and matrices idk
+modular arithmetic idk
 
 complete excercise 1.2.1 if needing matrix refresher
 
