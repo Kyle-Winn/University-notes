@@ -3,19 +3,16 @@ modular arithmetic idk
 
 complete excercise 1.2.1 if needing matrix refresher
 
-read uni textbooks for ila
-20-26
+FP and CL readings
+Chapters 5 6 7 8 9
+https://www.quora.com/What-are-some-programming-paradigms-other-than-object-oriented-What-are-their-pros-and-cons/answer/Jonathan-Reem
 
-for inf1a
-chapter 2 types
-chap 3 simple computation
-chap 7 testing programs
+ILA reading
 
-install haskell on home computer, 
-install haskell on macbook
+FP and CL tutorials
 
-read brians award on phone
-read binder
-spreadsheet for hours
+Fundamentals maths
+currently on week 2 SECTION 2
+
 
 

@@ -8,8 +8,8 @@ any solution where at least one variable has a nonzero value is called a nontriv
 If a homogeneous system of linear equations has more variables than equations, then it has a
 nontrivial solution (in fact, infinitely many).
 
-
-
+Example 1.3.5 solves homogenous system with coefficient matrix
+example 1.3.6 puts matrix A into linear combination of basic solutions
 
 Matrix - 
 A matrix is said to be in row-echelon form (and will be called a row-echelon matrix) if it
@@ -50,3 +50,6 @@ occurs, the system is inconsistent.
 3. Otherwise, assign the nonleading variables (if any) as parameters, and use the equations
 corresponding to the reduced row-echelon matrix to solve for the leading variables in terms
 of the parameters.
+
+
+
