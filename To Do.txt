@@ -3,16 +3,23 @@ modular arithmetic idk
 
 complete excercise 1.2.1 if needing matrix refresher
 
-FP and CL readings
-Chapters 5 6 7 8 9
-https://www.quora.com/What-are-some-programming-paradigms-other-than-object-oriented-What-are-their-pros-and-cons/answer/Jonathan-Reem
 
-ILA reading
+Fri
+CL quiz
+Section 4 FAC
+CL and FP tutorials
+ILA HOMEWORK
 
-FP and CL tutorials
+Sat
+FAC assessments
+Jack and borders
 
-Fundamentals maths
-currently on week 2 SECTION 2
+Sun
+get questions on terms for brian (check notepad in bag)
+iPad notes to jupiters notebook to github
+BRIAN 1PM
+Recap Gaussain eleminiation notes
+
 
 
 

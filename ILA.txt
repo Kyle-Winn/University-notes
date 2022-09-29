@@ -52,4 +52,39 @@ corresponding to the reduced row-echelon matrix to solve for the leading variabl
 of the parameters.
 
 
+MATRIX
+• If a matrix has size m×n, it has m rows and n columns.
+• If we speak of the (i, j)-entry of a matrix, it lies in row i and column j.
+• If an entry is denoted ai j, the first subscript i refers to the row and the second subscript j to the
+column in which ai j lies.
+
+If A is an m×n matrix, the transpose of A, written A^T
+ is the n×m matrix whose rows are just the
+columns of A in the same order.
+
+Example 2.2.2 to multiple by a vector
+
+if u solve it into arbitrary parameters, it means for any choice of s and t its a solution.
+
+https://math.berkeley.edu/~arash/54/notes/01_04.pdf
+Ax=b is defined in the link above
+
+definitoin 2.6 for dot product
+
+example 2.3.1 for multiplying matrix by a matrix
+
+the (1,3) entry of AB is the dot product of row 1 of A and column 3 of B
+
+the (2,4) entry of AB involves row 2 of A and column 4 of B
+
+Block partitioning is just matrixes made up of variables meaning other matrixes, maths is done normally
+
+with block partions when doing stuff to left side gotta do it to right side also
+
+
+INVERSE 
+PUT the left into row echelon while also doing the operations on the right , sooner or later
+u are gonna get the left reduced row echelon form and the right will be the original left hand side.
+multiply inverse by orginal to get the main diagaonal matrix thing
+
 
