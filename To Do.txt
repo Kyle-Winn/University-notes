@@ -1,25 +1,12 @@
 induction and matrices idk
 modular arithmetic idk
 
-complete excercise 1.2.1 if needing matrix refresher
-
-
-Fri
-CL quiz
-Section 4 FAC
-CL and FP tutorials
-ILA HOMEWORK
-
-Sat
-FAC assessments
-Jack and borders
-
-Sun
-get questions on terms for brian (check notepad in bag)
-iPad notes to jupiters notebook to github
-BRIAN 1PM
-Recap Gaussain eleminiation notes
 
 
 
-
+Mon
+check and submit CL and FP tutorials
+quiz
+submit h01
+ila reading quiz
+ila reading
