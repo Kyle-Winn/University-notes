@@ -1,4 +1,6 @@
 --Kyle Winn
+
+
 --Excercise 1
 --A; as it is the only one that isn't different to the others in some way
 
@@ -87,3 +89,4 @@ rank :: Thing -> Int
 rank x = length([ y | y <- (propertiesOnlyOf x) ])
 
 --rank A returns 0 whereas the others return 1; my hypothesis of A being the odd one out due to lack of uniqueness was correct.
+--rank A returns 0 as it has no unique properties, and thus is the odd one out
