@@ -2,14 +2,19 @@ induction and matrices idk
 modular arithmetic idk
 
 
-Tuesday
-FAC
-ILA reading
-ila assessed quiz
-FP quiz
 
 Wednesday
-Computing reading
+Computing reading -chap 10, chap 11
+ILA reading - just one section
+Fac section 3
 
-a * (9b) + a * c
-9(axb)+axc
+Thursday
+Ila reading - other section
+Fac section 4
+
+Friday
+fac assessment
+CL quiz
+
+Saturday
+tutorials
