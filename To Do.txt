@@ -3,16 +3,14 @@ modular arithmetic idk
 
 
 
-Wednesday
-Computing reading -chap 10, chap 11
-ILA reading - just one section
-Fac section 3
+
 
 Thursday
-Ila reading - other section
-Fac section 4
+Ila reading - 2.5
+Fac section 3 and 4
 
 Friday
+Gran
 fac assessment
 CL quiz
 
