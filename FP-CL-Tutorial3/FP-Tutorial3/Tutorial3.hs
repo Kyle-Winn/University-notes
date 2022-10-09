@@ -34,56 +34,73 @@ makeKey k = zip alphabet (rotate k alphabet)
 
 -- 1.
 lookUp :: Char -> [(Char, Char)] -> Char
-lookUp = undefined
+lookUp x xs = if null [ snd y | y <- xs, fst y == x ] then x else ([ snd y | y <- xs, fst y == x ] !! 0)
 
-lookUpRec :: Char -> [(Char, Char)] -> Char
-lookUpRec = undefined
+lookUpRec :: Char -> [(Char, Char)] -> Char 
+lookUpRec chr [] = chr 
+lookUpRec chr (x:xs)
+      | chr == fst x = snd x
+      | otherwise = lookUpRec chr xs
 
 prop_lookUp :: Char -> [(Char, Char)] -> Bool
-prop_lookUp = undefined
+prop_lookUp x xs = (lookUpRec x xs) == (lookUp x xs)
+-- +++ OK, passed 100 tests.
 
 -- 2.
 encipher :: Int -> Char -> Char
-encipher = undefined
+encipher x char = lookUp char (makeKey x)
 
 -- 3.
 normalise :: String -> String
-normalise = undefined
+normalise xs = [ toUpper x | x <- xs, isAlpha x ]
 
 normaliseRec :: String -> String
-normaliseRec = undefined
+normaliseRec [] = []
+normaliseRec (x:xs)
+      | isAlpha x = toUpper x : normaliseRec xs 
+      | otherwise = normaliseRec xs 
 
 prop_normalise :: String -> Bool
-prop_normalise = undefined
+prop_normalise ws = normalise ws == normaliseRec ws 
+-- +++ OK, passed 100 tests.
 
 -- 4.
+
 enciphers :: Int -> String -> String
-enciphers = undefined
+enciphers x ws =  [ encipher x y  | y <- normalise ws]
 
 -- 5.
 reverseKey :: [(Char, Char)] -> [(Char, Char)]
-reverseKey = undefined
+reverseKey xs = [ (snd x, fst x) | x <- xs]
 
 reverseKeyRec :: [(Char, Char)] -> [(Char, Char)]
-reverseKeyRec = undefined
+reverseKeyRec [] = []
+reverseKeyRec (x:xs)
+      | otherwise = (snd x, fst x) : reverseKeyRec xs
 
 prop_reverseKey :: [(Char, Char)] -> Bool
-prop_reverseKey = undefined
+prop_reverseKey xs = reverseKey xs == reverseKeyRec xs
+-- +++ OK, passed 100 tests.
+
 
 -- 6.
+
 decipher :: Int -> Char -> Char
-decipher = undefined
+decipher x char = head [snd y | y <- reverseKey (makeKey x), char == fst y]  
+
 
 decipherStr :: Int -> String -> String
-decipherStr = undefined
+decipherStr x ws = [ decipher x y | y <- ws, isAlpha y && isUpper y]
 
 
 -- ** Optional Material
 
 -- 7.
-candidates :: String -> [(Int, String)]
-candidates = undefined
+-- for every integer taken from [1..26] decipher string by it
 
+--decipher string with every integer up to 26, if and is inside deciphered string return a tuple with key and text
+candidates :: String -> [(Int, String)]
+candidates ws = [ (snd y, fst y) | y <- [(decipherStr x ws, x) | x <- [1..26]], isInfixOf "AND" (fst y) || isInfixOf "THE" (fst y)]
 
 splitEachFive :: String -> [String]
 splitEachFive xs | length xs > 5 = take 5 xs : splitEachFive (drop 5 xs)
@@ -109,8 +126,15 @@ fillToFive' xs = take 5 (xs ++ repeat 'X')
 
 -- 8.
 encrypt :: Int -> String -> String
-encrypt = undefined
+encrypt x ws =  intercalate "" (transpose (splitEachFive(enciphers x ws)))
 
 -- 9.
+
+split  :: String -> Int -> [String]
+split [] y = []
+split xs y | otherwise = take y xs : split (drop y xs) y
+     
+
+--split into segments of (string divided by 5), transpose, intercalate, and finally decipher
 decrypt :: Int -> String -> String
-decrypt = undefined
+decrypt x ws = decipherStr x (intercalate "" (transpose (split (ws) ((length ws) `div` 5))))

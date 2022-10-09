@@ -1,3 +1,6 @@
+import Data.List
+
+
 data Thing = A | B | C | D | E deriving (Eq,Show)
 
 things :: [Thing]
@@ -69,22 +72,44 @@ hasThickBorder x = border x == Thick
 -- Your task is to replace 'undefined' with the definitions of the operators below.
 
 (|=) :: Predicate Thing -> Predicate Thing -> Bool
-a |= b = undefined
+a |= b = and [ b x | x <- things, a x]
 
 (|/=) :: Predicate Thing -> Predicate Thing -> Bool
-a |/= b = undefined
+a |/= b = not (or[ b x | x <- things, a x])
+
+checkAlla :: [Predicate Thing] -> Thing -> [Bool]
+checkAlla [] y = []
+checkAlla (x:xs) y = x y : checkAlla xs y
 
 (||=) :: [Predicate Thing] -> Predicate Thing -> Bool
-a ||= b = undefined
+a ||= b =  and [b x | x <- things, and (checkAlla a x)]
+--[isBlue, isSquare] ||= isBig
+--everything that is blue and a square is also big
+--True
+
+--not([isBig, isAmber] ||= isDisc)
+--returns True (something that is big and is amber is not a disc)
+
+--excercise 7
 
 neg :: Predicate u -> Predicate u
 (neg a) x = not (a x)
 
 (|:|) :: Predicate u -> Predicate u -> Predicate u
-(a |:| b) x = undefined
+(a |:| b) x = a  x || b x
 
 (&:&) :: Predicate u -> Predicate u -> Predicate u
-(a &:& b) x = undefined
+(a &:& b) x = a x && b x
+
+--1. isBig &:& isAmber |= isDisc == False
+--2. isBig &:& isDisc |= isAmber == True
+--3. isSmall &:& neg isBlue |= neg isDisc == True
+--4. isBig |:| isAmber |= neg isSquare == False
+--5. neg (isSquare |:| isBlue) |= hasThickBorder == True
+--6. neg isSquare &:& neg isAmber |= isDisc == True
+
+--2, 3, 5 and 6 are return true
+
 
 -- Combining our infix operators may lead to ambiguous expressions. For example, 'a |:| b &:& c' can be read in two ways: either '(a |:| b) &:& c' or 'a |:| (b &:& c)'. We can always instruct Haskell which one to choose by adding paranthesis ourselves. 
 -- But there are also ways of instructing Haskell how to disambiguate. The next lines are setting the precedence for our infix operators. To learn more about this, watch the video on Precedence from the CL week 3 list of videos (https://media.ed.ac.uk/media/1_25gncs98). It is not crucial you understand all this at the moment; we will remind you of fixity declarations later on during the course. In short, these lines guarantee a non-ambiguous parsing of our code.
