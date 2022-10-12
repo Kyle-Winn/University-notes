@@ -1,16 +1,12 @@
 induction and matrices idk
 modular arithmetic idk
 
+CL reading
+FP reading
+ILA reading
+CL tutorial
 
+FAC everyday
 
-
-
-
-
-monday
-Fac final assessment
-submit tutorials (check ex 5 the last one)
-(check 3b, discord)
-
-Tuesday
-ILa quiz (assessed)
+CL quiz
+ILA Homework
