@@ -1,12 +1,10 @@
 induction and matrices idk
 modular arithmetic idk
 
-CL reading
-FP reading
-ILA reading
-CL tutorial
 
-FAC everyday
-
-CL quiz
-ILA Homework
+FAC final assessment
+ILA Homework (3.1.2 for quest 4)
+ila reading quiz
+ila practice quiz
+ila assessed quiz
+Submit tutorials

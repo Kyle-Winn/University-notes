@@ -28,7 +28,7 @@ prop_doubles xs = if doublesRec xs == doublesComp xs then doublesComp xs == doub
 -- 2. aboves
 -- a.
 abovesComp :: Int -> [Int] -> [Int]
-abovesComp x xs=  [ y | y <- xs, y > x]
+abovesComp x xs =  [ y | y <- xs, y > x]
 
 -- b.
 abovesRec :: Int -> [Int] -> [Int]
