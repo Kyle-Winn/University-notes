@@ -1,4 +1,4 @@
-module Tutorial6Sol where
+module Tutorial6 where
 
 import Data.List (nub)
 import Control.Monad (liftM, liftM2)
@@ -211,7 +211,6 @@ P Q R | (((P -> Q) && (Q -> R)) && (not (P -> R)))
 -- ** Optional Material
 
 -- 5.
---Not going deep enough
 isNNF :: Prop -> Bool
 isNNF (Not(p :||: q)) = False
 isNNF (Not(p :&&: q)) = False
