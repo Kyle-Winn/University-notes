@@ -3,7 +3,7 @@ To do
 
 FAC
 FP, CL, ILA readings
-FP tutorial
+submit FP tutorial
 CL tutorial
 
 Brian on Sat and Sun
