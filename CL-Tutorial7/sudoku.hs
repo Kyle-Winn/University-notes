@@ -1,6 +1,8 @@
-import Data.List
+import Data.List 
 import Data.Char(intToDigit)
 import System.CPUTime
+import Text.Printf
+
 
 -- [ The following lines code our language of forms ]
     
@@ -44,6 +46,7 @@ prioritise (And cs) = sortOn (\(Or ls) -> length ls) cs
 -- [ Now we start playing Sudoku ]
 -- 
 -- We follow the description in the textbook in chapter 19.
+
 
 --sudoku before removing constraints
 sudoku :: Form (Int, Int, Int)
@@ -98,7 +101,7 @@ squaresNoRepetition = And (concat [
                                  i' <- [(3 * a + 1)..(3 * a + 3)],
                                  j' <- [(3 * b + 1)..(3 * b + 3)],
                                  (i, j) < (i', j')]
-                                 | a <- [0..2], b <- [0..2], n <- [1..9]])
+                          | a <- [0..2], b <- [0..2], n <- [1..9]])
 
 solutions :: Form (Int, Int, Int) -> [[Literal (Int, Int, Int)]]
 solutions problem = dpll (sudoku <&&> problem)
@@ -183,6 +186,21 @@ printSolution = putStrLn . pretty . showSquares
 printAllSolutions :: Form (Int, Int, Int) -> IO ()
 printAllSolutions = mapM_ printSolution . solutions
 
+
+time :: IO t -> IO t
+time a = do
+    start <- getCPUTime
+    v <- a
+    end   <- getCPUTime
+    let diff = (fromIntegral (end - start)) / (10^12)
+    printf "Computation time: %0.3f sec\n" (diff :: Double)
+    return v
+
+main = do
+    putStrLn "Starting..."
+    time $ printAllSolutions sudokuProblem
+    putStrLn "Done."
+
 -- Answer to exercise 2
 
 {- 
@@ -201,14 +219,43 @@ removing:
 allFilled
 columnsComplete
 squaresComplete
-should make it more efficient as we are removing several loops in the form of these functions.
+Would make it run longer, and does not improve the efficiency.
 
 Compare the efficiency of different sets of constraints using Haskell.
-getCPUTime after removing constraints is 
-922890625000000 picoseconds
+processing time before removing constraints is
+┏━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃ 1 3 4 ┃ 7 9 6 ┃ 5 8 2 ┃
+┃ 6 5 7 ┃ 4 2 8 ┃ 1 9 3 ┃
+┃ 2 9 8 ┃ 1 5 3 ┃ 7 4 6 ┃
+┣━━━━━━━╋━━━━━━━╋━━━━━━━┫
+┃ 4 1 3 ┃ 5 7 2 ┃ 9 6 8 ┃
+┃ 5 7 2 ┃ 6 8 9 ┃ 4 3 1 ┃
+┃ 8 6 9 ┃ 3 1 4 ┃ 2 7 5 ┃
+┣━━━━━━━╋━━━━━━━╋━━━━━━━┫
+┃ 7 4 5 ┃ 8 3 1 ┃ 6 2 9 ┃
+┃ 9 8 1 ┃ 2 6 7 ┃ 3 5 4 ┃
+┃ 3 2 6 ┃ 9 4 5 ┃ 8 1 7 ┃
+┗━━━━━━━┻━━━━━━━┻━━━━━━━┛
+Computation time: 37.828 sec
 
-getCPUTime before removing constraints is
-922937500000000 picoseconds
+processing time after removing constraints is 
+┏━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃ 1 3 4 ┃ 7 9 6 ┃ 5 8 2 ┃
+┃ 6 5 7 ┃ 4 2 8 ┃ 1 9 3 ┃
+┃ 2 9 8 ┃ 1 5 3 ┃ 7 4 6 ┃
+┣━━━━━━━╋━━━━━━━╋━━━━━━━┫
+┃ 4 1 3 ┃ 5 7 2 ┃ 9 6 8 ┃
+┃ 5 7 2 ┃ 6 8 9 ┃ 4 3 1 ┃
+┃ 8 6 9 ┃ 3 1 4 ┃ 2 7 5 ┃
+┣━━━━━━━╋━━━━━━━╋━━━━━━━┫
+┃ 7 4 5 ┃ 8 3 1 ┃ 6 2 9 ┃
+┃ 9 8 1 ┃ 2 6 7 ┃ 3 5 4 ┃
+┃ 3 2 6 ┃ 9 4 5 ┃ 8 1 7 ┃
+┗━━━━━━━┻━━━━━━━┻━━━━━━━┛
+Computation time: 61.281 sec
 
-removing the constraints takes less CPU time and thus is more efficient
+
+Thus removing the redundant constraints makes the program run longer, and is less efficient.
 -}
+
+  
