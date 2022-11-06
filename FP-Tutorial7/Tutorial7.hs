@@ -49,7 +49,7 @@ dragon =  undefined
 split :: Command -> [Command]
 split (p :#: q) = (split p) ++ (split q)
 split (Sit) = []
-split (p) = [p]
+split p = [p]
 
 -- 6b. join
 join :: [Command] -> Command
@@ -87,12 +87,20 @@ prop_split cmd = and[ (x /= Sit) && (length(split(x)) == 1)| x <- split cmd]
 --q contains no adjacent Turn commands.
 
 sitlessJoin :: [Command] -> Command
-sitlessJoin cmd = foldr1 (:#:) cmd
+sitlessJoin cmd 
+    |(null cmd)        = Sit
+    |(length cmd == 1) = (head cmd) 
+    | otherwise        = (head cmd :#: sitlessJoin (tail cmd))
+
+handleGoandTurn :: [Command] -> [Command]
+handleGoandTurn [] = []
+handleGoandTurn (Go x : Go y : xs)     = [Go (x + y)] ++ handleGoandTurn xs
+handleGoandTurn (Turn x : Turn y : xs) = [Turn (x + y)] ++ handleGoandTurn xs
+handleGoandTurn (x:xs)                 = x : handleGoandTurn xs
+
+simplify :: Command -> Command
+simplify cmd = sitlessJoin(handleGoandTurn (filter (/= Turn 0) ( filter (/= Go 0) (split cmd))))
 
 optimise :: Command -> Command
-optimise cmd = sitlessJoin  (handleGoandTurn (filter (/= Turn 0) (handleGoandTurn ( filter (/= Go 0) (split cmd)))))
-    where 
-        handleGoandTurn [] = []
-        handleGoandTurn (Go x : Go y : xs)     = handleGoandTurn (Go (x+y) : xs)
-        handleGoandTurn (Turn x : Turn y : xs) = handleGoandTurn (Turn (x+y) : xs)
-        handleGoandTurn (x:xs)                 = x : handleGoandTurn xs
+optimise cmd = iterate simplify cmd !! (length (split cmd))
+

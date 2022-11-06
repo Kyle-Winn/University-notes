@@ -1,5 +1,6 @@
 import Data.List
 import Data.Char(intToDigit)
+import System.CPUTime
 
 -- [ The following lines code our language of forms ]
     
@@ -44,10 +45,19 @@ prioritise (And cs) = sortOn (\(Or ls) -> length ls) cs
 -- 
 -- We follow the description in the textbook in chapter 19.
 
+--sudoku before removing constraints
 sudoku :: Form (Int, Int, Int)
-sudoku = allFilled <&&> noneFilledTwice
+sudoku =  allFilled <&&> noneFilledTwice
          <&&> rowsComplete <&&> columnsComplete <&&> squaresComplete
          <&&> rowsNoRepetition <&&> columnsNoRepetition <&&> squaresNoRepetition
+
+{-
+--sudoku with constraints removed
+sudoku :: Form (Int, Int, Int)
+sudoku = noneFilledTwice
+         <&&> rowsComplete 
+         <&&> rowsNoRepetition <&&> columnsNoRepetition <&&> squaresNoRepetition
+-}
 
 allFilled :: Form (Int,Int,Int)
 allFilled = And [ Or [ P (i,j,n) | n <- [1..9] ]
@@ -63,10 +73,12 @@ rowsComplete = And [ Or [ P (i, j, n) | j <- [1..9] ]
                    | i <- [1..9], n <- [1..9] ]
 
 columnsComplete :: Form (Int,Int,Int)
-columnsComplete = undefined
+columnsComplete = And [ Or [ P (i, j, n) | i <- [1..9] ]
+                    | j <- [1..9], n <- [1..9] ]
 
 squaresComplete :: Form (Int,Int,Int)
-squaresComplete = undefined
+squaresComplete = And [ Or [ P (i, j, n) | i <- [(3*a+1)..(3*a+3)], j <- [(3*b+1)..(3*b+3)] ]
+                      | a <- [0..2], b <- [0..2], n <- [1..9] ]
 
 rowsNoRepetition :: Form (Int,Int,Int)
 rowsNoRepetition = And [ Or [ N (i, j, n), N (i, j', n) ]
@@ -74,10 +86,19 @@ rowsNoRepetition = And [ Or [ N (i, j, n), N (i, j', n) ]
                          j <- [1..9], j' <- [1..(j-1)] ]
 
 columnsNoRepetition :: Form (Int,Int,Int)
-columnsNoRepetition = undefined
-                      
+columnsNoRepetition = And [Or [N (i, j, n), N (i', j, n)]
+                        | j <- [1..9], n <- [1..9],
+                          i <- [1..9], i' <- [1..(i-1)] ]
+
 squaresNoRepetition :: Form (Int,Int,Int)
-squaresNoRepetition = undefined
+squaresNoRepetition = And (concat [
+                              [ Or [N (i, j, n), N (i', j', n) ]
+                               | i <- [(3 * a + 1)..(3 * a + 3)],
+                                 j <- [(3 * b + 1)..(3 * b + 3)],
+                                 i' <- [(3 * a + 1)..(3 * a + 3)],
+                                 j' <- [(3 * b + 1)..(3 * b + 3)],
+                                 (i, j) < (i', j')]
+                                 | a <- [0..2], b <- [0..2], n <- [1..9]])
 
 solutions :: Form (Int, Int, Int) -> [[Literal (Int, Int, Int)]]
 solutions problem = dpll (sudoku <&&> problem)
@@ -168,6 +189,26 @@ printAllSolutions = mapM_ printSolution . solutions
 
 Type your answer to exercise 2 here.
 
+Which of the constraints give a minimal and complete description of the Sudoku game?
+nonefilledtwice
+rowsComplete
+rowsNoRepetition
+columnsNoRepetition
+squaresNoRepetition
 
+Can we improve the efficiency of the solver by removing some of the redundant constraints?
+removing:
+allFilled
+columnsComplete
+squaresComplete
+should make it more efficient as we are removing several loops in the form of these functions.
 
+Compare the efficiency of different sets of constraints using Haskell.
+getCPUTime after removing constraints is 
+922890625000000 picoseconds
+
+getCPUTime before removing constraints is
+922937500000000 picoseconds
+
+removing the constraints takes less CPU time and thus is more efficient
 -}
