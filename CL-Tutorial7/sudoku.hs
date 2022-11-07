@@ -100,7 +100,7 @@ squaresNoRepetition = And (concat [
                                  j <- [(3 * b + 1)..(3 * b + 3)],
                                  i' <- [(3 * a + 1)..(3 * a + 3)],
                                  j' <- [(3 * b + 1)..(3 * b + 3)],
-                                 (i, j) < (i', j')]
+                                 (i, j) /= (i', j')]
                           | a <- [0..2], b <- [0..2], n <- [1..9]])
 
 solutions :: Form (Int, Int, Int) -> [[Literal (Int, Int, Int)]]
