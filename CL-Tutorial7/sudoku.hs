@@ -47,20 +47,21 @@ prioritise (And cs) = sortOn (\(Or ls) -> length ls) cs
 -- 
 -- We follow the description in the textbook in chapter 19.
 
-
+{-
 --sudoku before removing constraints
 sudoku :: Form (Int, Int, Int)
 sudoku =  allFilled <&&> noneFilledTwice
          <&&> rowsComplete <&&> columnsComplete <&&> squaresComplete
          <&&> rowsNoRepetition <&&> columnsNoRepetition <&&> squaresNoRepetition
+-}
 
-{-
+
 --sudoku with constraints removed
 sudoku :: Form (Int, Int, Int)
 sudoku = noneFilledTwice
          <&&> rowsComplete 
          <&&> rowsNoRepetition <&&> columnsNoRepetition <&&> squaresNoRepetition
--}
+
 
 allFilled :: Form (Int,Int,Int)
 allFilled = And [ Or [ P (i,j,n) | n <- [1..9] ]
@@ -219,7 +220,7 @@ removing:
 allFilled
 columnsComplete
 squaresComplete
-Would make it run longer, and does not improve the efficiency.
+Would make it run longer, as you have to search through more variables with less constraints.
 
 Compare the efficiency of different sets of constraints using Haskell.
 processing time before removing constraints is
