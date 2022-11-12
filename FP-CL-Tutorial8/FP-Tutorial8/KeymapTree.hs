@@ -102,11 +102,17 @@ filterGT key keymap = fromList(filter (\x -> (fst x) > key) (toList keymap))
 -- Exercise 9
                                      
 merge :: Ord k => Keymap k a -> Keymap k a -> Keymap k a
-merge keymap1 keymap2 =  fromList (toList keymap1 ++ toList keymap2)
+merge Leaf Leaf = Leaf
+merge (Node k v left right) Leaf = Node k v left right
+merge Leaf (Node k v left right) = Node k v left right
+merge (Node k v left right) (Node k1 v1 left1 right1) 
+      | k1 < k = Node k v (merge left left1) right
+      | k1 > k = Node k v left (merge right right1)
+      | k1 == k = Node k v (merge left left1) (merge right right1)
 
 prop_merge ::  (Ord k, Eq a) => Keymap k a -> Keymap k a -> Bool
 prop_merge km1 km2 = toList (merge km1 km2)  == (nub (toList km1 ++ toList km2))
-
+-- +++ OK, passed 100 tests
 -- Exercise 10
 
 select :: Ord k => (a -> Bool) -> Keymap k a -> Keymap k a
