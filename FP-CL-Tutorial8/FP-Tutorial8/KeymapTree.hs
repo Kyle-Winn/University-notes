@@ -93,11 +93,19 @@ prop_toList_fromList xs ys  =  toList (fromList zs) == sort zs
 -- Exercise 8
 
 filterLT :: Ord k => k -> Keymap k a -> Keymap k a
-filterLT key keymap = fromList(filter (\x -> (fst x) < key) (toList keymap))
+filterLT k = go
+    where go Leaf = Leaf
+          go (Node key v left right) | key == k  = go left
+                                     | key < k   = Node key v (go left) (go right)
+                                     | key > k   = (go left)
 
-                               
+                                     
 filterGT :: Ord k => k -> Keymap k a -> Keymap k a
-filterGT key keymap = fromList(filter (\x -> (fst x) > key) (toList keymap))
+filterGT k = go
+    where go Leaf = Leaf
+          go (Node key v left right) | key == k  = go right
+                                     | key < k   = (go right)
+                                     | key > k   = Node key v (go left) (go right)
 
 -- Exercise 9
                                      
@@ -106,9 +114,9 @@ merge Leaf Leaf = Leaf
 merge (Node k v left right) Leaf = Node k v left right
 merge Leaf (Node k v left right) = Node k v left right
 merge (Node k v left right) (Node k1 v1 left1 right1) 
-      | k1 < k = Node k v (merge left left1) right
-      | k1 > k = Node k v left (merge right right1)
-      | k1 == k = Node k v (merge left left1) (merge right right1)
+      | k1 == k   = Node k v (merge left (filterLT k left1)) (merge right (filterGT k right1))
+      | otherwise = Node k v (merge left (filterLT k (Node k1 v1 left1 right1))) (merge right (filterGT k (Node k1 v1 left1 right1)))
+
 
 prop_merge ::  (Ord k, Eq a) => Keymap k a -> Keymap k a -> Bool
 prop_merge km1 km2 = toList (merge km1 km2)  == (nub (toList km1 ++ toList km2))
