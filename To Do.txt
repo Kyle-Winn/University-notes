@@ -2,11 +2,7 @@ To do
 
 
 FP 8
--ex 7 find the big o notation time. everything else is finished.
-
-CL reading
-Watch CL lecture
-CL 8
+-ex 3 & 7 find the big o notation time.
 
 ILA reading on orthagonality and rank.
 

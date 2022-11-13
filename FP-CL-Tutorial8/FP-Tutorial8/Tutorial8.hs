@@ -78,6 +78,7 @@ Done
 
 If the database was two times bigger,
 how would you expect the time to change?
+The time would be slightly bigger or roughly the same as its in logarithmic time or O(logn)
 -}
 
 -- for Exercises 8--10 check KeymapTree.hs 
