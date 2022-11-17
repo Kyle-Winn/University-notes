@@ -146,7 +146,7 @@ close g x | x == g x = x
           | otherwise = close g (g x)
 
 -- 4.
---if matrix is made of single digits turn into solved puzzle (one list), else undefined
+--if matrix is made of single digits turn into solved puzzle (one list per row), else undefined
 extract :: Matrix [Digit] -> Matrix Digit
 extract matrix | all (all single) matrix = map (map unlist) matrix
                | otherwise = undefined
@@ -212,19 +212,27 @@ only easy and medium can be solved this way.
 
 -- 6.
 failed :: Matrix [Digit] -> Bool
-failed = undefined
+failed = any (any null)
 
 -- 7.
 solved :: Matrix [Digit] -> Bool
-solved = undefined
+solved = all (all single)
+        where 
+        single [a] = True
+        single  _  = False
 
 -- 8.
+--length of the shortest list of digits that has more than one choice
 shortest :: Matrix [Digit] -> Int
-shortest = undefined
+shortest = minimum . filter (> 1) . map length . concat
 
 -- 9.
 expand :: Matrix [Digit] -> [Matrix [Digit]]
-expand = undefined
+expand matrix =  [ preMat ++ [preRow ++ [[d]] ++ postRow] ++ postMat | d <- ds ]
+  where
+    short ds              = length ds == shortest matrix
+    (preMat, row:postMat) = break (any short) matrix
+    (preRow, ds:postRow)  = break short row
 
 -- 10.
 search :: Matrix Digit -> [Matrix Digit]
