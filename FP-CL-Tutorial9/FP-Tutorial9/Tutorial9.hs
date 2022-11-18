@@ -235,8 +235,16 @@ expand matrix =  [ preMat ++ [preRow ++ [[d]] ++ postRow] ++ postMat | d <- ds ]
     (preRow, ds:postRow)  = break short row
 
 -- 10.
+pruneMat :: Matrix [Digit] -> Matrix [Digit]
+pruneMat matrix = close prune matrix
+
+solve' :: Matrix [Digit] -> [Matrix Digit]
+solve' matrix   | failed (pruneMat matrix) = []
+                | solved (pruneMat matrix) = [extract (pruneMat matrix)]
+                | otherwise     = [ sol | exp <- expand (pruneMat matrix), sol <- solve' exp ]
+
 search :: Matrix Digit -> [Matrix Digit]
-search = undefined
+search = solve' . choices
 
 -- display puzzle and then solution(s) found by search
 
