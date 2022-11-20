@@ -1,10 +1,4 @@
 To do
 
-
-FP 8
--ex 3 & 7 find the big o notation time.
-
-ILA reading on orthagonality and rank.
-
-FAC practice and assessment.
-HO4
+CL 9
+submit fp 9

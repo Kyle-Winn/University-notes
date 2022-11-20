@@ -20,7 +20,7 @@ import Data.Char
 -- The following list contains the five strings in the question.
 -- REMOVE the strings that are not accepted by the automaton.
 
-ex2strings = [ "abbd", "ad", "aab", "abbbc", "ac" ]
+ex2strings = [ "abbd", "ad", "abbbc", "ac" ]
 
 
 -- you should also familiarise yourself with
@@ -60,8 +60,8 @@ eg1 = mkFSM [0..3] "abcd"
 -- Ex 3.
 -- DFA -- 
 isDFA :: Ord q => FSM q -> Bool
-isDFA (FSM qs as ts ss fs) = (size ss == undefined)
-  && undefined [ length[ q' | q' <- toList qs, (q, a, q')`member`ts ] == 1
+isDFA (FSM qs as ts ss fs) = (size ss == 1)
+  && and [ length[ q' | q' <- toList qs, (q, a, q')`member`ts ] == 1
                | q <- toList qs, a <- toList as ]
   
 -- applying transitions for a given symbol to move a list of states
@@ -81,8 +81,8 @@ accepts (FSM _ _ ts ss fs)  string = (not.null) (fs /\ final)
 -- Ex 4
 trace :: Ord q => FSM q -> [Sym] -> [Set q]
 trace (FSM qs as ts ss fs) word = tr ss word  where 
-  tr ss' [] = undefined
-  tr ss' (w : ws) = undefined 
+  tr ss' [] = [ss']
+  tr ss' (w : ws) = [ss'] ++ tr (transition ts ss' w) ws 
 
 -- Example machines
 
@@ -120,8 +120,61 @@ dm1 = mkFSM
 
 -- EXERCISE 5
 {- Optional - if you wish, you may write an answer for exercise 5 here.
+Fix an input alphabet Σ. Show that the set L of regular languages over Σ, together with the
+operations of complement, intersection, and union, is a boolean algebra
 
 
+First we define some set notation-
+Let A and B be regular languages in the set of L:
+      Union:
+      - A ∪ B = { x | x ∈ A or x ∈ B}
+
+      Intersection:
+      - A ∩ B = { x | x ∈ A and x ∈ B}
+
+      Complement:
+      - Ā = { x | x ∉ A}
+
+then:
+    - A ∪ B = A + B - AB
+    - A ∩ B = AB
+    - Ā = 1 - A
+
+Defining the operations and regular languages as Boolean algebra:
+
+    - A + B - AB = A ∨ B
+    - AB = A ∧ B
+    - 1 - A = ¬A
+
+Proving it's satisfiable with the 6 axioms on slide 4 of CL lecture week 8:
+
+Assuming A + A = A
+Associativity
+(A ∨ B) ∨ C = A ∨ (B ∨ C) 
+(A ∨ B) ∨ C = (A + B) + C
+(A ∨ B) ∨ C = A + B + C
+-(A ∨ B) ∨ C = A + (B + C)
+thus proved for Associativity
+
+Commutativity
+A ∨ B = B ∨ A
+A V B = A + B
+A V B = B + A
+thus proved for Commutativity
+
+Complements
+A V ¬A = 1
+A V ¬A = A + ¬A
+A V ¬A = A + 1 - A
+A V ¬A = 1
+thus proved for Complements
+
+Reader can verify the operations are valid and work as boolean algebra for the other axioms.
+
+The set M of DFAs over Σ with the operations ¯, ×, +d is not a boolean algebra. Why
+not?
+A DFA multiplied by a DFA is just a DFA, thus defining the A ∧ B rule or intersection rule (Where A and B are DFAs)
+on the set of DFAs would be AB which would just be another DFA, which is not boolean algebra.
 
 
 -} 
