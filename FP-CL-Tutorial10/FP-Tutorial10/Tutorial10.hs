@@ -48,8 +48,6 @@ j xs = [ i (xs !! c) (xs !! (helper xs c)) | (x, c) <- zip xs [0..]]
 
 -- 2c
 
-
-
 k :: [[a]] -> [[a]]
 k xs = go xs
    where 
@@ -120,25 +118,24 @@ simple p          = helper p
 -- 3c
 
 simplify :: Prop -> Prop
-simplify T       = T
-simplify F       = F
-simplify X       = X
-simplify Y       = Y
-simplify (Not T) = F
-simplify (Not F) = T
-simplify (F :&&: p) = F
-simplify (p :&&: F) = F
-simplify (T :&&: p) = simplify p
-simplify (p :&&: T) = simplify p
-simplify (T :||: p) = T
-simplify (p :||: T) = T
-simplify (F :||: p) = simplify p
-simplify (p :||: F) = simplify p
-simplify (F :->: p) = T 
-simplify (p :->: T) = T
-simplify (T :->: p) = simplify p
-simplify (p :->: F) = (Not (simplify p))
-simplify (p :->: q) =  simplify(( simplify p) :->: (  simplify q)) --remove the outer simplify to make it work for abstract variables.
-simplify (p :||: q) =  ((simplify p) :||: (simplify q))
-simplify (p :&&: q) =  ((simplify p) :&&: (simplify q))
-
+simplify prop | simple prop = prop
+              | otherwise   = helper prop
+              where
+              helper (Not T) = F
+              helper (Not F) = T
+              helper (_ :&&: F) = F
+              helper (F :&&: _) = F
+              helper (T :&&: y) = simplify y
+              helper (x :&&: T) = simplify x
+              helper (x :&&: y) = simplify (simplify x :&&: simplify y)
+              helper (F :||: y) = simplify y
+              helper (x :||: F) = simplify x
+              helper (T :||: _) = T
+              helper (_ :||: T) = T
+              helper (x :||: y) = simplify (simplify x :||: simplify y)
+              helper (F :->: _) = T
+              helper (_ :->: T) = T
+              helper (T :->: y) = simplify y
+              helper (x :->: y) = simplify (Not x :||: y) 
+              helper (Not p) = (Not (simplify p))
+              helper p = p
